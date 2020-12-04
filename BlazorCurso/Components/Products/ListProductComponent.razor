@@ -1,6 +1,15 @@
 ﻿@using Entities
 @using Business 
 
+<select class="form-control">
+    <option>
+        Seleccione una categoria...
+    </option>
+    @foreach (var item in categories)
+    {
+        <option value="@item.CategoryId" @onchange="OnCategoyChanges">@item.CategoryName</option>
+    }
+    </select>
 <table class="table table-hover table-bordered">
     <thead>
         <tr>
@@ -23,8 +32,15 @@
 
 @code {
     IEnumerable<ProductEntity> products = new List<ProductEntity>();
+    IEnumerable<CategoryEntity> categories = new List<CategoryEntity>();
     protected override async Task OnInitializedAsync()
     {
-        products = new B_Product().ItemList();
+        products  = new B_Product().ItemList();
+        categories = new B_Category().ItemList();
+    }
+
+    private void OnCategoyChanges(ChangeEventArgs e)
+    {
+        products.Where(x => x.CategoryId == e.Value.ToString());
     }
 }
