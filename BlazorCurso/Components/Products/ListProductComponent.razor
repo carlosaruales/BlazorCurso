@@ -13,6 +13,15 @@
 
 <br />
 
+<select class="form-control">
+    <option>
+        Seleccione una categoria...
+    </option>
+    @foreach (var item in categories)
+    {
+        <option value="@item.CategoryId" @onchange="OnCategoyChanges">@item.CategoryName</option>
+    }
+    </select>
 <table class="table table-hover table-bordered">
     <thead>
         <tr>
